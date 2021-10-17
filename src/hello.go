@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -138,8 +137,12 @@ func registraLogs(site string, status bool) {
 	if err != nil {
 		fmt.Println(err)
 	}
+	if status == false {
+		arquivo.WriteString("[ERROR] " + time.Now().Format("02/01/2006 15:04:05") + " - " + site + " Status: offline " + "\n")
 
-	arquivo.WriteString(time.Now().Format("02/01/2006 15:04:05") + " - " + site + " online: " + strconv.FormatBool(status) + "\n")
+	} else {
+		arquivo.WriteString("[ON AIR] " + time.Now().Format("02/01/2006 15:04:05") + " - " + site + " Status online " + "\n")
+	}
 	arquivo.Close()
 }
 
